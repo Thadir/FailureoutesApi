@@ -5,7 +5,9 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import lombok.extern.slf4j.Slf4j;
+import net.thadir.failure.controller.QuotesService;
 import net.thadir.failure.model.JsonQoutes;
+import net.thadir.failure.transformer.QuoteTransformer;
 
 import javax.inject.Named;
 import javax.ws.rs.GET;
@@ -19,6 +21,7 @@ import javax.ws.rs.core.Response;
 @Api(value = "Give inspiring quotes")
 @Slf4j
 public class QuotesEndpoint extends Endpoint {
+  private QuotesService quotesService = new QuotesService();
 
   @GET
   @Path("/failure/")
@@ -32,7 +35,7 @@ public class QuotesEndpoint extends Endpoint {
                          @ApiResponse(code = 500, message = "Internal Error")})
   public Response getOrganisationByAlias() {
     Response response = handleErrors(
-        () -> Response.ok(OrganisationTransformer.transform(organisationService.getOrganisationByAlias(AliasType.valueOf(aliasType), alias, provider)))
+        () -> Response.ok(QuoteTransformer.transform(quotesService.getRandomQuote()))
             .build());
     return response;
   }
