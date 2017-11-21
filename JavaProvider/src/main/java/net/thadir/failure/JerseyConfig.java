@@ -22,16 +22,16 @@ public class JerseyConfig extends ResourceConfig {
 
   @PostConstruct
   public void init() {
-    LOGGER.info("Start acc-mgt configure");
+    LOGGER.info("Start Failure Quotes API Provider configure");
     register(ApiListingResource.class);
     register(SwaggerSerializers.class);
 
     BeanConfig beanConfig = new BeanConfig();
     beanConfig.setSchemes(new String[] {"http"});
-    beanConfig.setResourcePackage("com.portbase.accmgt.endpoints");
+    beanConfig.setResourcePackage("net.thadir.failure.endpoints");
     beanConfig.setScan(true);
 
-    LOGGER.info("End acc-mgt configure");
+    LOGGER.info("End Failure Quotes API Provider configure");
   }
 
   private void doRegister() {

@@ -5,7 +5,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @lombok.Getter
 @lombok.Setter
 @lombok.Builder
-@lombok.EqualsAndHashCode(of = {"quote", "author"}) @lombok.ToString @XmlRootElement
+@lombok.ToString
+@XmlRootElement
 public class JsonQoutes {
   private String quote;
   private String author;
