@@ -14,5 +14,3 @@ target/
 .sonar/
 sonar-project.properties
 /bin/
-# Spring Boot Stuff
-acc-mgt-application/logs/
