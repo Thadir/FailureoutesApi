@@ -2,7 +2,6 @@ package net.thadir.failure.dto;
 
 @lombok.Getter
 @lombok.Setter
-@lombok.RequiredArgsConstructor
 @lombok.ToString
 public class Quote {
     private final String quote;
