@@ -163,6 +163,13 @@
       <version>${mockito.version}</version>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>au.com.dius</groupId>
+      <artifactId>pact-jvm-consumer-junit_2.12</artifactId>
+      <version>3.5.7</version>
+      <scope>test</scope>
+    </dependency>
+
   </dependencies>
   
   <build>
@@ -237,6 +244,9 @@
         <version>${maven-surefire-plugin.version}</version>
         <configuration>
           <trimStackTrace>false</trimStackTrace>
+          <systemPropertyVariables>
+            <pact.rootDir>${project.basedir}/../pacts</pact.rootDir>
+          </systemPropertyVariables>
         </configuration>
       </plugin>
       <plugin>

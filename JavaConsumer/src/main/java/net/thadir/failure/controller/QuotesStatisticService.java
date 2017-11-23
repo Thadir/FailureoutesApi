@@ -10,28 +10,25 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
-import javax.ws.rs.core.UriBuilder;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.Map;
 
 @Slf4j
 @Component
-public class QuotesService {
-  private final RestTemplate restTemplate;
-  private final Map<Quote,Integer> statistic;
-
-  public QuotesService() {
-    RestTemplateBuilder  restTemplateBuilder = new RestTemplateBuilder();
-    this.restTemplate = restTemplateBuilder.build();
-    statistic = new HashMap<>();
-  }
+public class QuotesStatisticService {
+  private static final  RestTemplateBuilder  restTemplateBuilder = new RestTemplateBuilder();
+  private static final RestTemplate restTemplate = restTemplateBuilder.build();;
+  private static final Map<Quote,Integer> statistic = new HashMap<>();
 
 
-  public QuoteStat getRandomQuote() {
-    ResponseEntity<Quote> result = this.restTemplate.exchange("127.0.0.1:8080/quotes/failure", HttpMethod.GET, null, new ParameterizedTypeReference<Quote>() {});
+  public static QuoteStat getRandomQuote(String url) {
+    String toUseURL = "http://127.0.0.1:8080/quotes/failure";
+    if (url != null) {
+      toUseURL = url + "/quotes/failure";
+    }
+    ResponseEntity<Quote> result = restTemplate.exchange(toUseURL, HttpMethod.GET, null, new ParameterizedTypeReference<Quote>() {});
     Quote toStoreAndReturn = result.getBody();
+    log.info("Quote recieved {} is in store {}", toStoreAndReturn, statistic.containsKey(toStoreAndReturn));
     Integer increment = 0;
     if(statistic.containsKey(toStoreAndReturn)) {
       increment = statistic.get(statistic);

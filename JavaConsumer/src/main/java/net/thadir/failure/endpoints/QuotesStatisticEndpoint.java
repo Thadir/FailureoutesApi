@@ -5,7 +5,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import lombok.extern.slf4j.Slf4j;
-import net.thadir.failure.controller.QuotesService;
+import net.thadir.failure.controller.QuotesStatisticService;
 import net.thadir.failure.dto.QuoteStat;
 import org.springframework.stereotype.Component;
 
@@ -22,7 +22,7 @@ import javax.ws.rs.core.Response;
 @Api(value = "Give inspiring quotes about failing")
 @Slf4j
 public class QuotesStatisticEndpoint extends Endpoint {
-  private QuotesService quotesService = new QuotesService();
+  private static QuotesStatisticService quotesService = new QuotesStatisticService();
 
   @GET
   @Path("/failure/")
@@ -36,7 +36,7 @@ public class QuotesStatisticEndpoint extends Endpoint {
                          @ApiResponse(code = 500, message = "Internal Error")})
   public Response getOrganisationByAlias() {
     Response response = handleErrors(
-        () -> Response.ok(quotesService.getRandomQuote())
+        () -> Response.ok(quotesService.getRandomQuote(null))
             .build());
     return response;
   }

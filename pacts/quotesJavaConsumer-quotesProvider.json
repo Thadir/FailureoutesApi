@@ -1,0 +1,40 @@
+{
+    "provider": {
+        "name": "quotesProvider"
+    },
+    "consumer": {
+        "name": "quotesJavaConsumer"
+    },
+    "interactions": [
+        {
+            "description": "ExampleJavaConsumerPactRuleTest test interaction",
+            "request": {
+                "method": "GET",
+                "path": "/quotes/failure"
+            },
+            "response": {
+                "status": 200,
+                "headers": {
+                    "Content-Type": "application/json"
+                },
+                "body": {
+                    "quote": "Failure comes only when we forget our ideals and objectives and principles.",
+                    "author": "Jawaharlal Nehru"
+                }
+            },
+            "providerStates": [
+                {
+                    "name": "test state"
+                }
+            ]
+        }
+    ],
+    "metadata": {
+        "pact-specification": {
+            "version": "3.0.0"
+        },
+        "pact-jvm": {
+            "version": "3.5.7"
+        }
+    }
+}
