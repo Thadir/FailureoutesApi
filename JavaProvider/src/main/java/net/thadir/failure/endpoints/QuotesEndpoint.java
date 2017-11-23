@@ -23,6 +23,15 @@ import javax.ws.rs.core.Response;
 @Api(value = "Give inspiring quotes about failing")
 @Slf4j
 public class QuotesEndpoint extends Endpoint {
+  private QuotesService quotesService;
+
+  public QuotesEndpoint() {
+    quotesService = new QuotesService();
+  }
+
+  public QuotesEndpoint(QuotesService quotesService) {
+    this.quotesService = quotesService;
+  }
 
   @GET
   @Path("/failure/")
@@ -36,7 +45,7 @@ public class QuotesEndpoint extends Endpoint {
                          @ApiResponse(code = 500, message = "Internal Error")})
   public Response getFailureQuotes() {
     Response response = handleErrors(
-        () -> Response.ok(QuoteTransformer.transform(QuotesService.getRandomQuote()))
+        () -> Response.ok(QuoteTransformer.transform(quotesService.getRandomQuote()))
             .build());
     return response;
   }
