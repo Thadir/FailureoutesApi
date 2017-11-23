@@ -35,13 +35,6 @@
     <mockito.version>2.8.47</mockito.version>
     <swagger.version>1.5.16</swagger.version>
     
-    <pact.broker.username>${env.PACT_USER}</pact.broker.username>
-    <pact.broker.password>${env.PACT_PASS}</pact.broker.password>
-    <pact.broker.protocol>https</pact.broker.protocol>
-    <pact.broker.host>portbase.pact.dius.com.au</pact.broker.host>
-    <pact.broker.port>443</pact.broker.port>
-    <pact-jvm.version>3.5.7</pact-jvm.version>
-    
     <security-client.version>2.7.2</security-client.version>
     <guava.version>23.0</guava.version>
     <javassist.version>3.19.0-GA</javassist.version>
@@ -68,27 +61,6 @@
         <artifactId>jackson-annotations</artifactId>
         <version>2.8.9</version>
         <scope>runtime</scope>
-      </dependency>
-      <dependency>
-        <groupId>org.hibernate</groupId>
-        <artifactId>hibernate-core</artifactId>
-        <version>${hibernate-entitymanager.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.hibernate</groupId>
-        <artifactId>hibernate-entitymanager</artifactId>
-        <version>${hibernate-entitymanager.version}</version>
-        <exclusions>
-          <exclusion>
-            <artifactId>xml-apis</artifactId>
-            <groupId>xml-apis</groupId>
-          </exclusion>
-        </exclusions>
-      </dependency>
-      <dependency>
-        <groupId>com.h2database</groupId>
-        <artifactId>h2</artifactId>
-        <version>${h2.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
@@ -125,15 +97,16 @@
       <groupId>io.swagger</groupId>
       <artifactId>swagger-jersey2-jaxrs</artifactId>
       <version>${swagger.version}</version>
+      <exclusions>
+        <exclusion>
+          <artifactId>commons-lang3</artifactId>
+          <groupId>org.apache.commons</groupId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <dependency>
       <groupId>org.apache.logging.log4j</groupId>
       <artifactId>log4j-web</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.portbase.security.api</groupId>
-      <artifactId>security-client</artifactId>
-      <version>${security-client.version}</version>
     </dependency>
     
     <dependency>
@@ -151,12 +124,12 @@
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-test</artifactId>
       <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>com.portbase.security.api</groupId>
-      <artifactId>security-client-tests</artifactId>
-      <version>${security-client.version}</version>
-      <scope>test</scope>
+      <exclusions>
+        <exclusion>
+          <artifactId>mockito-core</artifactId>
+          <groupId>org.mockito</groupId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <dependency>
       <groupId>javax.ws.rs</groupId>
@@ -188,18 +161,6 @@
       <groupId>org.mockito</groupId>
       <artifactId>mockito-core</artifactId>
       <version>${mockito.version}</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>au.com.dius</groupId>
-      <artifactId>pact-jvm-provider-junit_2.12</artifactId>
-      <version>${pact-jvm.version}</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.glassfish.jersey.test-framework.providers</groupId>
-      <artifactId>jersey-test-framework-provider-grizzly2</artifactId>
-      <version>2.25.1</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
@@ -277,6 +238,18 @@
         <configuration>
           <trimStackTrace>false</trimStackTrace>
         </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+        <version>${spring-boot-version}</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>repackage</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>

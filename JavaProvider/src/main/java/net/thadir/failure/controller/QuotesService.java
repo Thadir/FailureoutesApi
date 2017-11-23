@@ -2,12 +2,14 @@ package net.thadir.failure.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import net.thadir.failure.dto.Quote;
+import org.springframework.stereotype.Component;
 
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
+@Component
 public class QuotesService {
   List<Quote>         failures;
   private SecureRandom randomiser = new SecureRandom();

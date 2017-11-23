@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import net.thadir.failure.controller.QuotesService;
 import net.thadir.failure.model.JsonQoutes;
 import net.thadir.failure.transformer.QuoteTransformer;
+import org.springframework.stereotype.Component;
 
 import javax.inject.Named;
 import javax.ws.rs.GET;
@@ -16,9 +17,10 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+@Component
 @Named
 @Path("/quotes")
-@Api(value = "Give inspiring quotes")
+@Api(value = "Give inspiring quotes about failing")
 @Slf4j
 public class QuotesEndpoint extends Endpoint {
   private QuotesService quotesService = new QuotesService();
