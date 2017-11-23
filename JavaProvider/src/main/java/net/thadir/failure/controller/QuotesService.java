@@ -34,6 +34,7 @@ public class QuotesService {
 
   public Quote getRandomQuote() {
     int byInt = randomiser.nextInt(failures.size());
+    log.info("The random number for this quote is {}", byInt);
     return failures.get(byInt);
   }
 }

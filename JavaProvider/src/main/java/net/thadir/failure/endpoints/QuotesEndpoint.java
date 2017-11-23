@@ -35,7 +35,7 @@ public class QuotesEndpoint extends Endpoint {
   @ApiResponses(value = {@ApiResponse(code = 200, message = "Quote found"),
                          @ApiResponse(code = 404, message = "Quote not found"),
                          @ApiResponse(code = 500, message = "Internal Error")})
-  public Response getOrganisationByAlias() {
+  public Response getFailureQuotes() {
     Response response = handleErrors(
         () -> Response.ok(QuoteTransformer.transform(quotesService.getRandomQuote()))
             .build());
